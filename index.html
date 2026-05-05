@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kabelo Nyalungu Physiotherapy</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Smooth scroll -->
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      overflow-x: hidden;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- NAVBAR -->
+  <header class="fixed top-0 left-0 w-full bg-white shadow z-50">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+
+      <!-- Brand -->
+      <div class="flex items-center gap-3">
+
+        <img
+          src="./logo.png"
+          alt="Clinic Logo"
+          class="w-12 h-12 object-contain"
+        />
+
+        <div>
+          <h1 class="text-lg md:text-xl font-bold text-blue-400">
+            Kabelo Nyalungu
+          </h1>
+          <p class="text-xs tracking-widest text-gray-500">
+            PHYSIOTHERAPY
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Navigation -->
+      <nav class="hidden md:flex space-x-6">
+        <a href="#about" class="hover:text-blue-500 transition">About</a>
+        <a href="#services" class="hover:text-blue-500 transition">Services</a>
+        <a href="#contact" class="hover:text-blue-500 transition">Contact</a>
+      </nav>
+
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-200 to-blue-400 text-white pt-24">
+
+    <div class="text-center px-6 max-w-4xl">
+
+      <h1
+        class="text-4xl md:text-6xl font-bold mb-4 opacity-0 translate-y-10 transition-all duration-1000"
+        data-animate
+      >
+        Rehabilitation. Recovery. Real Results.
+      </h1>
+
+      <p
+        class="text-lg md:text-xl mb-8 opacity-0 translate-y-10 transition-all duration-1000 delay-200"
+        data-animate
+      >
+        Professional physiotherapy care focused on restoring movement,
+        reducing pain, and improving quality of life.
+      </p>
+
+      <a
+        href="#contact"
+        class="bg-white text-blue-500 px-6 py-3 rounded-full font-semibold shadow hover:scale-105 transition"
+      >
+        Book Appointment
+      </a>
+
+    </div>
+
+  </section>
+
+  <!-- TRUST STRIP -->
+  <section class="bg-white border-y">
+    <div class="max-w-6xl mx-auto px-6 py-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+
+      <div>
+        <p class="font-semibold text-blue-400">Licensed Care</p>
+        <p class="text-sm text-gray-500">Registered Practitioner</p>
+      </div>
+
+      <div>
+        <p class="font-semibold text-blue-400">Clinic Based</p>
+        <p class="text-sm text-gray-500">Vita Star Medical Centre</p>
+      </div>
+
+      <div>
+        <p class="font-semibold text-blue-400">Home Visits</p>
+        <p class="text-sm text-gray-500">Available</p>
+      </div>
+
+      <div>
+        <p class="font-semibold text-blue-400">Quick Booking</p>
+        <p class="text-sm text-gray-500">WhatsApp Enabled</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="py-20 bg-white">
+    <div class="max-w-5xl mx-auto px-6 text-center">
+
+      <h2 class="text-3xl font-bold text-blue-400 mb-4">
+        Professional Care
+      </h2>
+
+      <p class="text-gray-600 leading-relaxed text-lg">
+        Delivering expert physiotherapy services focused on recovery,
+        mobility, rehabilitation, and long-term health. Based at
+        Vita Star Medical Centre and offering home-based treatment.
+      </p>
+
+    </div>
+  </section>
+
+  <!-- PRACTICE SHOWCASE -->
+<section id="showcase" class="py-20 bg-gray-50">
+  <div class="max-w-6xl mx-auto px-6">
+
+    <!-- Section Header -->
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold text-blue-400 mb-4">
+        Inside the Practice
+      </h2>
+
+      <p class="text-gray-600 max-w-2xl mx-auto">
+        A look into our professional environment, treatment space,
+        and the practitioner behind the care.
+      </p>
+    </div>
+
+    <!-- Gallery Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+      <!-- Office -->
+      <div
+        class="overflow-hidden rounded-2xl shadow-lg group opacity-0 translate-y-10 transition-all duration-1000"
+        data-animate
+      >
+        <img
+          src="./images/office1.jpg"
+          alt="Clinic Office"
+          class="w-full h-80 object-cover group-hover:scale-105 transition duration-500"
+        />
+      </div>
+
+      <!-- Treatment Space -->
+      <div
+        class="overflow-hidden rounded-2xl shadow-lg group opacity-0 translate-y-10 transition-all duration-1000"
+        data-animate
+      >
+        <img
+          src="./images/office2.jpg"
+          alt="Treatment Room"
+          class="w-full h-80 object-cover group-hover:scale-105 transition duration-500"
+        />
+      </div>
+
+      <!-- Practitioner -->
+      <div
+        class="overflow-hidden rounded-2xl shadow-lg group opacity-0 translate-y-10 transition-all duration-1000"
+        data-animate
+      >
+        <img
+          src="./images/kabelo.jpg"
+          alt="Physiotherapist"
+          class="w-full h-96 object-cover group-hover:scale-105 transition duration-500"
+        />
+      </div>
+
+      <!-- Graduation -->
+      <div
+        class="overflow-hidden rounded-2xl shadow-lg group opacity-0 translate-y-10 transition-all duration-1000"
+        data-animate
+      >
+        <img
+          src="./images/graduation.jpg"
+          alt="Academic Achievement"
+          class="w-full h-96 object-cover group-hover:scale-105 transition duration-500"
+        />
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+  <!-- SERVICES -->
+  <section id="services" class="py-20 bg-gray-100">
+    <div class="max-w-6xl mx-auto px-6">
+
+      <h2 class="text-3xl font-bold text-center text-blue-400 mb-12">
+        Services
+      </h2>
+
+      <div class="grid md:grid-cols-4 gap-8">
+
+        <!-- Sports -->
+        <div
+          class="bg-white p-6 rounded-2xl shadow hover:shadow-xl transition transform hover:-translate-y-2 opacity-0 translate-y-10"
+          data-animate
+        >
+          <div class="text-4xl mb-4">🏃</div>
+          <h3 class="font-bold mb-2">Sports Injuries</h3>
+          <p class="text-sm text-gray-600 mb-4">
+            Injury prevention, rehabilitation and performance optimisation.
+          </p>
+
+          <a
+            href="https://wa.me/27823105343?text=Hi%20I%20would%20like%20to%20book%20for%20Sports%20Injury%20treatment"
+            target="_blank"
+            class="text-blue-500 font-semibold"
+          >
+            Book via WhatsApp
+          </a>
+        </div>
+
+        <!-- Back & Neck -->
+        <div
+          class="bg-white p-6 rounded-2xl shadow hover:shadow-xl transition transform hover:-translate-y-2 opacity-0 translate-y-10"
+          data-animate
+        >
+          <div class="text-4xl mb-4">🦴</div>
+          <h3 class="font-bold mb-2">Back & Neck Clinic</h3>
+          <p class="text-sm text-gray-600 mb-4">
+            Assessment and treatment of back and neck pain.
+          </p>
+
+          <a
+            href="https://wa.me/27823105343?text=Hi%20I%20would%20like%20to%20book%20for%20Back%20and%20Neck%20treatment"
+            target="_blank"
+            class="text-blue-500 font-semibold"
+          >
+            Book via WhatsApp
+          </a>
+        </div>
+
+        <!-- Neuro -->
+        <div
+          class="bg-white p-6 rounded-2xl shadow hover:shadow-xl transition transform hover:-translate-y-2 opacity-0 translate-y-10"
+          data-animate
+        >
+          <div class="text-4xl mb-4">🧠</div>
+          <h3 class="font-bold mb-2">Neurological Rehab</h3>
+          <p class="text-sm text-gray-600 mb-4">
+            Specialised rehabilitation for neurological conditions.
+          </p>
+
+          <a
+            href="https://wa.me/27823105343?text=Hi%20I%20would%20like%20to%20book%20for%20Neurological%20Rehabilitation"
+            target="_blank"
+            class="text-blue-500 font-semibold"
+          >
+            Book via WhatsApp
+          </a>
+        </div>
+
+        <!-- Home -->
+        <div
+          class="bg-white p-6 rounded-2xl shadow hover:shadow-xl transition transform hover:-translate-y-2 opacity-0 translate-y-10"
+          data-animate
+        >
+          <div class="text-4xl mb-4">🏠</div>
+          <h3 class="font-bold mb-2">Home Visits</h3>
+          <p class="text-sm text-gray-600 mb-4">
+            Professional physiotherapy in the comfort of your home.
+          </p>
+
+          <a
+            href="https://wa.me/27823105343?text=Hi%20I%20would%20like%20to%20book%20a%20home%20visit"
+            target="_blank"
+            class="text-blue-500 font-semibold"
+          >
+            Book via WhatsApp
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="py-20 bg-blue-200 text-white">
+    <div class="max-w-5xl mx-auto px-6 text-center">
+
+      <h2 class="text-3xl font-bold mb-6">
+        Get In Touch
+      </h2>
+
+      <p class="mb-4">
+        Vita Star Medical Centre, Boksburg
+      </p>
+
+      <div class="space-y-2 mb-8">
+        <p>📞 082 310 5343</p>
+        <p>📧 kabelonyalungu7@gmail.com</p>
+        <p>🏥 Home Visits Available</p>
+      </div>
+
+      <!-- Main WhatsApp CTA -->
+      <a
+        href="https://wa.me/27823105343?text=Hello%20I%20would%20like%20to%20book%20a%20physiotherapy%20appointment"
+        target="_blank"
+        class="inline-block mb-12 bg-green-500 text-white px-6 py-3 rounded-full font-semibold hover:scale-105 transition"
+      >
+        WhatsApp Booking
+      </a>
+
+      <!-- Booking Form -->
+      <form
+        id="bookingForm"
+        class="space-y-4 max-w-md mx-auto"
+      >
+
+        <input
+          type="text"
+          id="name"
+          placeholder="Full Name"
+          required
+          class="w-full p-3 rounded text-black"
+        />
+
+        <input
+          type="text"
+          id="phone"
+          placeholder="Phone Number"
+          required
+          class="w-full p-3 rounded text-black"
+        />
+
+        <input
+          type="email"
+          id="email"
+          placeholder="Email"
+          class="w-full p-3 rounded text-black"
+        />
+
+        <select
+          id="service"
+          class="w-full p-3 rounded text-black"
+        >
+          <option>Sports Injuries</option>
+          <option>Back & Neck Clinic</option>
+          <option>Neurological Rehab</option>
+          <option>Home Visits</option>
+        </select>
+
+        <textarea
+          id="message"
+          placeholder="Additional Notes"
+          class="w-full p-3 rounded text-black"
+        ></textarea>
+
+        <button
+          type="submit"
+          class="bg-white text-blue-700 px-6 py-3 rounded-full font-semibold"
+        >
+          Continue to WhatsApp
+        </button>
+
+      </form>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-gray-900 text-gray-400 text-center p-6">
+    <p>© 2026 Blue Monday Studios. All rights reserved.</p>
+  </footer>
+
+  <!-- Scroll Animations -->
+  <script>
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.remove("opacity-0", "translate-y-10");
+        }
+      });
+    });
+
+    document.querySelectorAll("[data-animate]").forEach(el => {
+      observer.observe(el);
+    });
+  </script>
+
+  <!-- Form to WhatsApp -->
+  <script>
+    document
+      .getElementById("bookingForm")
+      .addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const name = document.getElementById("name").value;
+        const phone = document.getElementById("phone").value;
+        const email = document.getElementById("email").value;
+        const service = document.getElementById("service").value;
+        const message = document.getElementById("message").value;
+
+        const text =
+`New Appointment Request
+
+Name: ${name}
+Phone: ${phone}
+Email: ${email}
+Service: ${service}
+
+Notes:
+${message}`;
+
+        const encodedText = encodeURIComponent(text);
+
+        window.open(
+          `https://wa.me/27823105343?text=${encodedText}`,
+          "_blank"
+        );
+
+        this.reset();
+      });
+  </script>
+
+</body>
+</html>
