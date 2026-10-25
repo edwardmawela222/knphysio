@@ -9,8 +9,9 @@
  *        titles or details), so the website can hide slots that are taken.
  *
  *   POST {"start": "YYYY-MM-DDTHH:mm", "name": ..., "phone": ..., ...}
- *        Checks the slot is still free and inside opening hours, then adds a
- *        "Pending" event to the calendar and emails Kabelo the details.
+ *        Checks the slot is still free and inside opening hours, then adds the
+ *        booking to the calendar and emails Kabelo the details. Open slots are
+ *        first come, first served: a booking holds the slot straight away.
  *
  * Setup steps: see SETUP.md in this folder.
  */
@@ -31,13 +32,14 @@ var CONFIG = {
   maxDaysAhead: 100,
 
   // Stops one phone number from holding lots of slots at once.
-  maxPendingPerPhone: 2,
+  maxUpcomingPerPhone: 2,
 
   // Email Kabelo whenever a new booking comes in.
   notifyByEmail: true
 };
 
-var PENDING_PREFIX = 'Pending: ';
+// First line of every website booking's description; used to recognise them
+var BOOKED_NOTE = 'Booked via knphysio.online.';
 
 function doGet(e) {
   var params = (e && e.parameter) || {};
@@ -112,12 +114,12 @@ function doPost(e) {
       return json_({ ok: false, error: 'taken' });
     }
 
-    if (pendingCountFor_(calendar, booking.phone) >= CONFIG.maxPendingPerPhone) {
+    if (upcomingCountFor_(calendar, booking.phone) >= CONFIG.maxUpcomingPerPhone) {
       return json_({ ok: false, error: 'too_many' });
     }
 
     var details = [
-      'Booked via knphysio.online - confirm with the patient, or delete this event to free the slot.',
+      BOOKED_NOTE + " If you can't make it, contact the patient and delete this event to free the slot.",
       '',
       'Name: ' + booking.name,
       'Phone: ' + booking.phone,
@@ -130,7 +132,7 @@ function doPost(e) {
     ].join('\n');
 
     calendar.createEvent(
-      PENDING_PREFIX + booking.name + ' - ' + (booking.service || 'Physiotherapy'),
+      booking.name + ' - ' + (booking.service || 'Physiotherapy'),
       start,
       end,
       { description: details, location: booking.visitType }
@@ -183,13 +185,13 @@ function isBookable_(start) {
   return start >= earliest && start < latest;
 }
 
-function pendingCountFor_(calendar, phone) {
+function upcomingCountFor_(calendar, phone) {
   var now = new Date();
   var events = calendar.getEvents(now, addDays_(now, CONFIG.maxDaysAhead + 1), { search: phone });
 
   return events.filter(function (event) {
     return (
-      event.getTitle().indexOf(PENDING_PREFIX) === 0 &&
+      event.getDescription().indexOf(BOOKED_NOTE) === 0 &&
       event.getDescription().indexOf('Phone: ' + phone + '\n') !== -1
     );
   }).length;
