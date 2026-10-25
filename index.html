@@ -3,7 +3,23 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Kabelo Nyalungu Physiotherapy</title>
+  <title>Kabelo Nyalungu Physiotherapy | Boksburg</title>
+  <meta
+    name="description"
+    content="Kabelo Nyalungu Physiotherapy at Vita Star Medical Centre, Boksburg. Sports injuries, back and neck pain, neurological rehab and orthopaedic care. Home visits available. Book online via WhatsApp."
+  />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="images/logo1.png"/>
+  <link rel="apple-touch-icon" href="images/logo1.png"/>
+
+  <!-- Social sharing preview -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://knphysio.online/"/>
+  <meta property="og:title" content="Kabelo Nyalungu Physiotherapy"/>
+  <meta property="og:description" content="Rehabilitation. Real Recovery. Professional physiotherapy in Boksburg, with home visits available."/>
+  <meta property="og:image" content="https://knphysio.online/images/kabelo-portrait.JPG"/>
+  <meta name="twitter:card" content="summary_large_image"/>
 
   <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -17,6 +33,11 @@
     body {
       overflow-x: hidden;
     }
+
+    /* Keep section headings clear of the fixed header */
+    section[id] {
+      scroll-margin-top: 6rem;
+    }
   </style>
 </head>
 
@@ -27,7 +48,7 @@
     <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
 
       <!-- Brand -->
-      <div class="flex items-center gap-3">
+      <a href="#" class="flex items-center gap-3">
 
         <img
           src="images/logo1.png"
@@ -36,9 +57,9 @@
         />
 
         <div>
-          <h1 class="text-lg md:text-xl font-bold text-blue-400">
+          <p class="text-lg md:text-xl font-bold text-blue-600">
             Kabelo Nyalungu
-          </h1>
+          </p>
           <p class="text-xs tracking-widest text-gray-500">
             PHYSIOTHERAPY
           </p>
@@ -47,20 +68,43 @@
           </p>
         </div>
 
-      </div>
+      </a>
 
       <!-- Navigation -->
-      <nav class="hidden md:flex space-x-6">
-        <a href="#about" class="hover:text-blue-500 transition">About</a>
-        <a href="#services" class="hover:text-blue-500 transition">Services</a>
-        <a href="#contact" class="hover:text-blue-500 transition">Contact</a>
+      <nav class="hidden md:flex items-center space-x-6">
+        <a href="#about" class="hover:text-blue-600 transition">About</a>
+        <a href="#services" class="hover:text-blue-600 transition">Services</a>
+        <a href="#booking" class="hover:text-blue-600 transition">Book</a>
+        <a href="#contact" class="hover:text-blue-600 transition">Contact</a>
       </nav>
 
+      <!-- Mobile menu button -->
+      <button
+        id="menuButton"
+        type="button"
+        class="md:hidden p-2 rounded text-gray-700 hover:bg-gray-100"
+        aria-controls="mobileMenu"
+        aria-expanded="false"
+        aria-label="Open menu"
+      >
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+
     </div>
+
+    <!-- Mobile Navigation -->
+    <nav id="mobileMenu" class="hidden md:hidden border-t bg-white">
+      <a href="#about" class="block px-6 py-3 hover:bg-gray-50">About</a>
+      <a href="#services" class="block px-6 py-3 hover:bg-gray-50">Services</a>
+      <a href="#booking" class="block px-6 py-3 hover:bg-gray-50">Book</a>
+      <a href="#contact" class="block px-6 py-3 hover:bg-gray-50">Contact</a>
+    </nav>
   </header>
 
   <!-- HERO -->
-  <section class="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-200 to-blue-400 text-white pt-24">
+  <section class="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-600 to-blue-800 text-white pt-24">
 
     <div class="text-center px-6 max-w-4xl">
 
@@ -79,8 +123,8 @@
       </p>
 
       <a
-        href="#contact"
-        class="bg-white text-blue-500 px-6 py-3 rounded-full font-semibold shadow hover:scale-105 transition"
+        href="#booking"
+        class="inline-block bg-white text-blue-700 px-6 py-3 rounded-full font-semibold shadow hover:scale-105 transition"
       >
         Book Appointment
       </a>
@@ -94,22 +138,22 @@
     <div class="max-w-6xl mx-auto px-6 py-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
 
       <div>
-        <p class="font-semibold text-blue-400">Licensed Care</p>
+        <p class="font-semibold text-blue-600">Licensed Care</p>
         <p class="text-sm text-gray-500">Registered Practitioner</p>
       </div>
 
       <div>
-        <p class="font-semibold text-blue-400">Clinic Based</p>
+        <p class="font-semibold text-blue-600">Clinic Based</p>
         <p class="text-sm text-gray-500">Vita Star Medical Centre</p>
       </div>
 
       <div>
-        <p class="font-semibold text-blue-400">Home Visits</p>
+        <p class="font-semibold text-blue-600">Home Visits</p>
         <p class="text-sm text-gray-500">Available</p>
       </div>
 
       <div>
-        <p class="font-semibold text-blue-400">Quick Booking</p>
+        <p class="font-semibold text-blue-600">Quick Booking</p>
         <p class="text-sm text-gray-500">WhatsApp Enabled</p>
       </div>
 
@@ -120,7 +164,7 @@
   <div class="max-w-5xl mx-auto px-6">
 
     <div class="text-center mb-10">
-      <h2 class="text-3xl font-bold text-blue-400 mb-4">
+      <h2 class="text-3xl font-bold text-blue-600 mb-4">
         Meet Kabelo Nyalungu
       </h2>
     </div>
@@ -167,7 +211,7 @@
 
     <!-- Section Header -->
     <div class="text-center mb-12">
-      <h2 class="text-3xl font-bold text-blue-400 mb-4">
+      <h2 class="text-3xl font-bold text-blue-600 mb-4">
         Inside the Practice
       </h2>
 
@@ -188,6 +232,7 @@
         <img
           src="./images/office1.jpg"
           alt="Clinic Office"
+          loading="lazy"
           class="w-full h-80 object-cover group-hover:scale-105 transition duration-500"
         />
       </div>
@@ -200,6 +245,7 @@
         <img
           src="./images/office2.jpg"
           alt="Treatment Room"
+          loading="lazy"
           class="w-full h-80 object-cover group-hover:scale-105 transition duration-500"
         />
       </div>
@@ -209,12 +255,12 @@
 
   </div>
 </section>
-  
-<section class="py-20 bg-gray-100">
+
+<section id="qualifications" class="py-20 bg-gray-100">
   <div class="max-w-6xl mx-auto px-6">
 
     <div class="text-center mb-12">
-      <h2 class="text-3xl font-bold text-blue-400 mb-4">
+      <h2 class="text-3xl font-bold text-blue-600 mb-4">
         Qualifications & Certifications
       </h2>
     </div>
@@ -223,7 +269,7 @@
 
       <!-- Degree -->
       <div class="bg-white p-8 rounded-2xl shadow">
-        <h3 class="font-bold text-xl mb-4 text-blue-500">
+        <h3 class="font-bold text-xl mb-4 text-blue-600">
           Academic Foundation
         </h3>
 
@@ -236,7 +282,7 @@
 
       <!-- Certifications -->
       <div class="bg-white p-8 rounded-2xl shadow">
-        <h3 class="font-bold text-xl mb-4 text-blue-500">
+        <h3 class="font-bold text-xl mb-4 text-blue-600">
           Professional Development
         </h3>
 
@@ -255,22 +301,13 @@
 
   </div>
 </section>
-<section id="showcase" class="py-20 bg-gray-50">
-  <div class="max-w-6xl mx-auto px-6">
 
-    <!-- Section Header -->
-    <div class="text-center mb-12">
-    
-    </div>
+  <!-- PRACTITIONER GALLERY -->
+<section id="gallery" class="py-20 bg-gray-50">
+  <div class="max-w-6xl mx-auto px-6">
 
     <!-- Gallery Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-      <!-- Office -->
-   
-
-      <!-- Treatment Space -->
-     
 
       <!-- Practitioner -->
       <div
@@ -280,6 +317,7 @@
         <img
           src="./images/kabelo.jpg"
           alt="Physiotherapist"
+          loading="lazy"
           class="w-full h-96 object-cover group-hover:scale-105 transition duration-500"
         />
       </div>
@@ -292,6 +330,7 @@
         <img
           src="./images/graduation.jpg"
           alt="Academic Achievement"
+          loading="lazy"
           class="w-full h-96 object-cover group-hover:scale-105 transition duration-500"
         />
       </div>
@@ -300,13 +339,13 @@
 
   </div>
 </section>
-  
-  
+
+
   <!-- SERVICES -->
 <section id="services" class="py-20 bg-gray-100">
   <div class="max-w-6xl mx-auto px-6">
 
-    <h2 class="text-3xl font-bold text-center text-blue-400 mb-12">
+    <h2 class="text-3xl font-bold text-center text-blue-600 mb-12">
       Services
     </h2>
 
@@ -375,7 +414,7 @@
         </p>
       </div>
 
-      <!-- Home -->
+      <!-- Orthopaedic & Joint -->
       <div
         class="bg-white p-8 rounded-2xl shadow hover:shadow-xl transition transform hover:-translate-y-2"
       >
@@ -392,7 +431,7 @@
         </h3>
 
         <p class="text-sm text-gray-600 text-center mb-4">
-          Professional physiotherapy in the comfort of your home.
+          Treatment of joint pain, arthritis, fractures and post-surgical rehabilitation.
         </p>
       </div>
 
@@ -400,8 +439,97 @@
   </div>
 </section>
 
+  <!-- BOOKING CALENDAR -->
+<section id="booking" class="py-20 bg-white">
+  <div class="max-w-6xl mx-auto px-6">
+
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold text-blue-600 mb-4">
+        Book a Session
+      </h2>
+
+      <p class="text-gray-600 max-w-2xl mx-auto">
+        Pick a day to see the open time slots, choose a time that suits you,
+        and send your request on WhatsApp. Your booking is confirmed once Kabelo replies.
+      </p>
+    </div>
+
+    <div class="grid lg:grid-cols-5 gap-8">
+
+      <!-- Calendar -->
+      <div class="lg:col-span-3 bg-gray-50 rounded-2xl shadow p-4 sm:p-6">
+
+        <div class="flex items-center justify-between mb-6">
+          <button
+            id="prevMonth"
+            type="button"
+            class="w-10 h-10 rounded-full flex items-center justify-center text-blue-700 hover:bg-blue-100 disabled:text-gray-300 disabled:hover:bg-transparent disabled:cursor-not-allowed transition"
+            aria-label="Previous month"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+            </svg>
+          </button>
+
+          <h3 id="monthLabel" class="text-xl font-bold text-gray-800" aria-live="polite"></h3>
+
+          <button
+            id="nextMonth"
+            type="button"
+            class="w-10 h-10 rounded-full flex items-center justify-center text-blue-700 hover:bg-blue-100 disabled:text-gray-300 disabled:hover:bg-transparent disabled:cursor-not-allowed transition"
+            aria-label="Next month"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="grid grid-cols-7 gap-1 sm:gap-2 mb-2 text-center text-xs font-semibold uppercase tracking-wide text-gray-500">
+          <div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div><div>Sun</div>
+        </div>
+
+        <div id="calendarGrid" class="grid grid-cols-7 gap-1 sm:gap-2"></div>
+
+        <!-- Legend -->
+        <div class="flex flex-wrap gap-x-5 gap-y-2 mt-6 text-xs text-gray-600">
+          <span class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-green-500"></span>Available</span>
+          <span class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-amber-400"></span>Few slots left</span>
+          <span class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-gray-300"></span>Closed / fully booked</span>
+        </div>
+      </div>
+
+      <!-- Time slots -->
+      <div class="lg:col-span-2 bg-gray-50 rounded-2xl shadow p-6 flex flex-col">
+
+        <p class="text-sm font-semibold uppercase tracking-wide text-gray-500">Selected day</p>
+        <h3 id="selectedDayLabel" class="scroll-mt-28 text-xl font-bold text-gray-800 mb-1">Choose a date</h3>
+        <p id="slotCount" class="text-sm text-gray-500 mb-6"></p>
+
+        <div id="slotList" class="space-y-5 flex-1" aria-live="polite"></div>
+
+        <!-- Summary -->
+        <div id="slotSummary" class="hidden mt-6 bg-blue-700 text-white rounded-xl p-5">
+          <p class="text-sm text-blue-100">Your chosen slot</p>
+          <p id="slotSummaryText" class="text-lg font-bold mb-4"></p>
+          <button
+            id="bookSlotButton"
+            type="button"
+            class="w-full bg-white text-blue-700 px-6 py-3 rounded-full font-semibold hover:scale-105 transition"
+          >
+            Book this slot
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
   <!-- CONTACT -->
-  <section id="contact" class="py-20 bg-blue-200 text-white">
+  <section id="contact" class="py-20 bg-blue-700 text-white">
     <div class="max-w-5xl mx-auto px-6 text-center">
 
       <h2 class="text-3xl font-bold mb-6">
@@ -413,8 +541,8 @@
       </p>
 
       <div class="space-y-2 mb-8">
-        <p>📞 082 310 5343</p>
-        <p>📧 kabelonyalungu7@gmail.com</p>
+        <p>📞 <a href="tel:+27823105343" class="underline hover:text-blue-100">082 310 5343</a></p>
+        <p>📧 <a href="mailto:kabelonyalungu7@gmail.com" class="underline hover:text-blue-100">kabelonyalungu7@gmail.com</a></p>
         <p>🏥 Home Visits Available</p>
       </div>
 
@@ -422,7 +550,8 @@
       <a
         href="https://wa.me/27823105343?text=Hello%20I%20would%20like%20to%20book%20a%20physiotherapy%20appointment"
         target="_blank"
-        class="inline-block mb-12 bg-green-500 text-white px-6 py-3 rounded-full font-semibold hover:scale-105 transition"
+        rel="noopener"
+        class="inline-block mb-12 bg-green-600 text-white px-6 py-3 rounded-full font-semibold hover:scale-105 transition"
       >
         WhatsApp Booking
       </a>
@@ -437,21 +566,42 @@
       <!-- Booking Form -->
       <form
         id="bookingForm"
-        class="space-y-4 max-w-md mx-auto"
+        class="space-y-4 max-w-md mx-auto text-left"
       >
+
+        <div>
+          <label for="slot" class="block text-sm mb-1">Preferred slot</label>
+          <div class="flex gap-2">
+            <input
+              type="text"
+              id="slot"
+              readonly
+              placeholder="Any available time"
+              class="flex-1 p-3 rounded text-black bg-blue-50"
+            />
+            <a
+              href="#booking"
+              class="shrink-0 px-4 py-3 rounded border border-white text-sm font-semibold hover:bg-white hover:text-blue-700 transition"
+            >
+              Choose
+            </a>
+          </div>
+        </div>
 
         <input
           type="text"
           id="name"
           placeholder="Full Name"
+          autocomplete="name"
           required
           class="w-full p-3 rounded text-black"
         />
 
         <input
-          type="text"
+          type="tel"
           id="phone"
           placeholder="Phone Number"
+          autocomplete="tel"
           required
           class="w-full p-3 rounded text-black"
         />
@@ -460,6 +610,7 @@
           type="email"
           id="email"
           placeholder="Email"
+          autocomplete="email"
           class="w-full p-3 rounded text-black"
         />
 
@@ -470,7 +621,15 @@
           <option>Sports Injuries</option>
           <option>Back & Neck Clinic</option>
           <option>Neurological Rehab</option>
-          <option>Home Visits</option>
+          <option>Orthopaedic & Joint Conditions</option>
+        </select>
+
+        <select
+          id="visitType"
+          class="w-full p-3 rounded text-black"
+        >
+          <option>At the clinic</option>
+          <option>Home visit</option>
         </select>
 
         <textarea
@@ -479,12 +638,14 @@
           class="w-full p-3 rounded text-black"
         ></textarea>
 
-        <button
-          type="submit"
-          class="bg-white text-blue-700 px-6 py-3 rounded-full font-semibold"
-        >
-          Continue to WhatsApp
-        </button>
+        <div class="text-center">
+          <button
+            type="submit"
+            class="bg-white text-blue-700 px-6 py-3 rounded-full font-semibold hover:scale-105 transition"
+          >
+            Continue to WhatsApp
+          </button>
+        </div>
 
       </form>
 
@@ -495,6 +656,24 @@
   <footer class="bg-gray-900 text-gray-400 text-center p-6">
     <p>© 2026 Blue Monday Studios. All rights reserved.</p>
   </footer>
+
+  <!-- Mobile Menu -->
+  <script>
+    const menuButton = document.getElementById("menuButton");
+    const mobileMenu = document.getElementById("mobileMenu");
+
+    menuButton.addEventListener("click", () => {
+      const open = mobileMenu.classList.toggle("hidden") === false;
+      menuButton.setAttribute("aria-expanded", String(open));
+    });
+
+    mobileMenu.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        mobileMenu.classList.add("hidden");
+        menuButton.setAttribute("aria-expanded", "false");
+      });
+    });
+  </script>
 
   <!-- Scroll Animations -->
   <script>
@@ -511,6 +690,295 @@
     });
   </script>
 
+  <!-- Booking Calendar -->
+  <script>
+    /*
+      AVAILABILITY SETTINGS - edit these to match the practice schedule.
+
+      hours:        opening times per weekday (0 = Sunday ... 6 = Saturday).
+                    Leave a day out to mark it closed.
+      slotMinutes:  length of one appointment slot.
+      closedDates:  public holidays, leave, etc. ("YYYY-MM-DD").
+      bookedSlots:  slots already taken, e.g. "2026-11-03": ["09:00", "14:00"].
+      monthsAhead:  how many months ahead patients can browse.
+      minNoticeHours: how soon a slot can be booked from now.
+    */
+    const AVAILABILITY = {
+      hours: {
+        1: { start: "08:00", end: "17:00" },
+        2: { start: "08:00", end: "17:00" },
+        3: { start: "08:00", end: "17:00" },
+        4: { start: "08:00", end: "17:00" },
+        5: { start: "08:00", end: "17:00" },
+        6: { start: "08:00", end: "12:00" }
+      },
+      slotMinutes: 60,
+      closedDates: [
+        "2026-12-16", // Day of Reconciliation
+        "2026-12-25", // Christmas Day
+        "2026-12-26", // Day of Goodwill
+        "2027-01-01"  // New Year's Day
+      ],
+      bookedSlots: {},
+      monthsAhead: 2,
+      minNoticeHours: 2
+    };
+
+    const FEW_SLOTS = 2;
+
+    const grid = document.getElementById("calendarGrid");
+    const monthLabel = document.getElementById("monthLabel");
+    const prevButton = document.getElementById("prevMonth");
+    const nextButton = document.getElementById("nextMonth");
+    const selectedDayLabel = document.getElementById("selectedDayLabel");
+    const slotCount = document.getElementById("slotCount");
+    const slotList = document.getElementById("slotList");
+    const slotSummary = document.getElementById("slotSummary");
+    const slotSummaryText = document.getElementById("slotSummaryText");
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const firstMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+    const lastMonth = new Date(today.getFullYear(), today.getMonth() + AVAILABILITY.monthsAhead, 1);
+
+    let viewMonth = new Date(firstMonth);
+    let selectedDate = null;
+    let selectedTime = null;
+
+    const toKey = date =>
+      `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+
+    const toMinutes = time => {
+      const [h, m] = time.split(":").map(Number);
+      return h * 60 + m;
+    };
+
+    const toTime = minutes =>
+      `${String(Math.floor(minutes / 60)).padStart(2, "0")}:${String(minutes % 60).padStart(2, "0")}`;
+
+    const formatDay = date =>
+      date.toLocaleDateString("en-ZA", { weekday: "long", day: "numeric", month: "long" });
+
+    function slotsFor(date) {
+      const hours = AVAILABILITY.hours[date.getDay()];
+      const key = toKey(date);
+
+      if (!hours || date < today || AVAILABILITY.closedDates.includes(key)) {
+        return [];
+      }
+
+      const booked = AVAILABILITY.bookedSlots[key] || [];
+      const earliest = new Date(Date.now() + AVAILABILITY.minNoticeHours * 3600000);
+      const slots = [];
+
+      for (
+        let t = toMinutes(hours.start);
+        t + AVAILABILITY.slotMinutes <= toMinutes(hours.end);
+        t += AVAILABILITY.slotMinutes
+      ) {
+        const time = toTime(t);
+        const start = new Date(date);
+        start.setHours(Math.floor(t / 60), t % 60);
+
+        if (!booked.includes(time) && start >= earliest) {
+          slots.push(time);
+        }
+      }
+
+      return slots;
+    }
+
+    function renderCalendar() {
+      monthLabel.textContent = viewMonth.toLocaleDateString("en-ZA", { month: "long", year: "numeric" });
+      prevButton.disabled = viewMonth <= firstMonth;
+      nextButton.disabled = viewMonth >= lastMonth;
+
+      grid.innerHTML = "";
+
+      // Monday-first offset
+      const offset = (viewMonth.getDay() + 6) % 7;
+      for (let i = 0; i < offset; i++) {
+        grid.appendChild(document.createElement("div"));
+      }
+
+      const daysInMonth = new Date(viewMonth.getFullYear(), viewMonth.getMonth() + 1, 0).getDate();
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        const date = new Date(viewMonth.getFullYear(), viewMonth.getMonth(), day);
+        const slots = slotsFor(date);
+        const isSelected = selectedDate && toKey(date) === toKey(selectedDate);
+        const isToday = toKey(date) === toKey(today);
+
+        const cell = document.createElement("button");
+        cell.type = "button";
+        cell.disabled = slots.length === 0;
+        cell.setAttribute("aria-pressed", String(Boolean(isSelected)));
+        cell.setAttribute(
+          "aria-label",
+          `${formatDay(date)}, ${slots.length ? `${slots.length} slot${slots.length === 1 ? "" : "s"} available` : "unavailable"}`
+        );
+
+        let classes = "relative aspect-square rounded-xl flex flex-col items-center justify-center text-sm sm:text-base font-semibold transition ";
+
+        if (isSelected) {
+          classes += "bg-blue-600 text-white shadow-lg scale-105";
+        } else if (slots.length) {
+          classes += "bg-white text-gray-800 shadow-sm hover:bg-blue-50 hover:-translate-y-0.5 hover:shadow";
+        } else {
+          classes += "text-gray-300 cursor-not-allowed";
+        }
+
+        if (isToday && !isSelected) {
+          classes += " ring-2 ring-blue-400";
+        }
+
+        cell.className = classes;
+
+        const number = document.createElement("span");
+        number.textContent = day;
+        cell.appendChild(number);
+
+        if (slots.length) {
+          const indicator = document.createElement("span");
+          const few = slots.length <= FEW_SLOTS;
+          indicator.className = "mt-1 flex items-center gap-1 text-[10px] sm:text-xs font-normal";
+
+          const dot = document.createElement("span");
+          dot.className = `w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full ${
+            isSelected ? "bg-white" : few ? "bg-amber-400" : "bg-green-500"
+          }`;
+          indicator.appendChild(dot);
+
+          const label = document.createElement("span");
+          label.className = `hidden sm:inline ${isSelected ? "text-blue-100" : "text-gray-500"}`;
+          label.textContent = `${slots.length} open`;
+          indicator.appendChild(label);
+
+          cell.appendChild(indicator);
+          cell.addEventListener("click", () => {
+            selectDate(date);
+
+            // On stacked (mobile) layouts, bring the time slots into view
+            if (window.innerWidth < 1024) {
+              selectedDayLabel.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+          });
+        }
+
+        grid.appendChild(cell);
+      }
+    }
+
+    function renderSlots() {
+      slotList.innerHTML = "";
+
+      if (!selectedDate) {
+        selectedDayLabel.textContent = "Choose a date";
+        slotCount.textContent = "No open slots in this month. Try the next one.";
+        return;
+      }
+
+      const slots = slotsFor(selectedDate);
+      selectedDayLabel.textContent = formatDay(selectedDate);
+      slotCount.textContent = `${slots.length} slot${slots.length === 1 ? "" : "s"} available · ${AVAILABILITY.slotMinutes} min sessions`;
+
+      const groups = [
+        { name: "Morning", slots: slots.filter(t => toMinutes(t) < 12 * 60) },
+        { name: "Afternoon", slots: slots.filter(t => toMinutes(t) >= 12 * 60) }
+      ];
+
+      groups.forEach(group => {
+        if (!group.slots.length) return;
+
+        const wrapper = document.createElement("div");
+
+        const heading = document.createElement("p");
+        heading.className = "text-xs font-semibold uppercase tracking-wide text-gray-500 mb-2";
+        heading.textContent = group.name;
+        wrapper.appendChild(heading);
+
+        const list = document.createElement("div");
+        list.className = "grid grid-cols-3 gap-2";
+
+        group.slots.forEach(time => {
+          const active = time === selectedTime;
+          const button = document.createElement("button");
+          button.type = "button";
+          button.textContent = time;
+          button.setAttribute("aria-pressed", String(active));
+          button.className = `py-2 rounded-lg border font-semibold text-sm transition ${
+            active
+              ? "bg-blue-600 border-blue-600 text-white shadow"
+              : "bg-white border-gray-200 text-gray-700 hover:border-blue-500 hover:text-blue-700"
+          }`;
+          button.addEventListener("click", () => selectTime(time));
+          list.appendChild(button);
+        });
+
+        wrapper.appendChild(list);
+        slotList.appendChild(wrapper);
+      });
+    }
+
+    function renderSummary() {
+      if (!selectedDate || !selectedTime) {
+        slotSummary.classList.add("hidden");
+        return;
+      }
+
+      slotSummaryText.textContent = `${formatDay(selectedDate)} at ${selectedTime}`;
+      slotSummary.classList.remove("hidden");
+    }
+
+    function selectDate(date) {
+      selectedDate = date;
+      selectedTime = null;
+      renderCalendar();
+      renderSlots();
+      renderSummary();
+    }
+
+    function selectTime(time) {
+      selectedTime = time;
+      renderSlots();
+      renderSummary();
+    }
+
+    function selectFirstAvailable() {
+      const daysInMonth = new Date(viewMonth.getFullYear(), viewMonth.getMonth() + 1, 0).getDate();
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        const date = new Date(viewMonth.getFullYear(), viewMonth.getMonth(), day);
+        if (slotsFor(date).length) {
+          selectDate(date);
+          return;
+        }
+      }
+
+      selectedDate = null;
+      selectedTime = null;
+      renderCalendar();
+      renderSlots();
+      renderSummary();
+    }
+
+    function changeMonth(step) {
+      viewMonth = new Date(viewMonth.getFullYear(), viewMonth.getMonth() + step, 1);
+      selectFirstAvailable();
+    }
+
+    prevButton.addEventListener("click", () => changeMonth(-1));
+    nextButton.addEventListener("click", () => changeMonth(1));
+
+    document.getElementById("bookSlotButton").addEventListener("click", () => {
+      document.getElementById("slot").value = slotSummaryText.textContent;
+      document.getElementById("bookingForm").scrollIntoView({ behavior: "smooth", block: "center" });
+      document.getElementById("name").focus({ preventScroll: true });
+    });
+
+    selectFirstAvailable();
+  </script>
+
   <!-- Form to WhatsApp -->
   <script>
     document
@@ -518,19 +986,23 @@
       .addEventListener("submit", function (e) {
         e.preventDefault();
 
+        const slot = document.getElementById("slot").value || "Any available time";
         const name = document.getElementById("name").value;
         const phone = document.getElementById("phone").value;
         const email = document.getElementById("email").value;
         const service = document.getElementById("service").value;
+        const visitType = document.getElementById("visitType").value;
         const message = document.getElementById("message").value;
 
         const text =
 `New Appointment Request
 
+Preferred Slot: ${slot}
 Name: ${name}
 Phone: ${phone}
 Email: ${email}
 Service: ${service}
+Visit Type: ${visitType}
 
 Notes:
 ${message}`;
@@ -539,7 +1011,8 @@ ${message}`;
 
         window.open(
           `https://wa.me/27823105343?text=${encodedText}`,
-          "_blank"
+          "_blank",
+          "noopener"
         );
 
         this.reset();
