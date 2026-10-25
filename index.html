@@ -6,7 +6,7 @@
   <title>Kabelo Nyalungu Physiotherapy | Boksburg</title>
   <meta
     name="description"
-    content="Kabelo Nyalungu Physiotherapy at Vita Star Medical Centre, Boksburg. Sports injuries, back and neck pain, neurological rehab and orthopaedic care. Home visits available. Book online via WhatsApp."
+    content="Kabelo Nyalungu Physiotherapy at Vita Star Medical Centre, Boksburg. Sports injuries, back and neck pain, neurological rehab and orthopaedic care. Home visits available. Choose your appointment slot online."
   />
 
   <!-- Favicon -->
@@ -153,8 +153,8 @@
       </div>
 
       <div>
-        <p class="font-semibold text-blue-600">Quick Booking</p>
-        <p class="text-sm text-gray-500">WhatsApp Enabled</p>
+        <p class="font-semibold text-blue-600">Online Booking</p>
+        <p class="text-sm text-gray-500">Choose Your Own Slot</p>
       </div>
 
     </div>
@@ -615,17 +615,15 @@
         </p>
       </div>
 
-      <!-- Main WhatsApp CTA -->
+      <!-- Main Booking CTA -->
       <a
-        href="https://wa.me/27823105343?text=Hello%20I%20would%20like%20to%20book%20a%20physiotherapy%20appointment"
-        target="_blank"
-        rel="noopener"
-        class="inline-flex items-center gap-2 mb-12 bg-green-600 text-white px-6 py-3 rounded-full font-semibold hover:scale-105 transition"
+        href="#booking"
+        class="inline-flex items-center gap-2 mb-12 bg-white text-blue-700 px-6 py-3 rounded-full font-semibold shadow hover:scale-105 transition"
       >
-        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z"/>
         </svg>
-        WhatsApp Booking
+        Choose Your Slot
       </a>
 
       <p class="text-white max-w-2xl mx-auto mb-8 leading-relaxed">
@@ -642,13 +640,13 @@
       >
 
         <div>
-          <label for="slot" class="block text-sm mb-1">Preferred slot</label>
+          <label for="slot" class="block text-sm mb-1">Your slot</label>
           <div class="flex gap-2">
             <input
               type="text"
               id="slot"
               readonly
-              placeholder="Any available time"
+              placeholder="No slot chosen yet"
               class="flex-1 min-w-0 p-3 rounded text-black bg-blue-50"
             />
             <a
@@ -658,6 +656,9 @@
               Choose
             </a>
           </div>
+          <p id="slotError" class="hidden mt-2 text-sm font-semibold text-amber-200">
+            Please choose a slot from the calendar first.
+          </p>
         </div>
 
         <input
@@ -1044,6 +1045,7 @@
 
     document.getElementById("bookSlotButton").addEventListener("click", () => {
       document.getElementById("slot").value = slotSummaryText.textContent;
+      document.getElementById("slotError").classList.add("hidden");
       document.getElementById("bookingForm").scrollIntoView({ behavior: "smooth", block: "center" });
       document.getElementById("name").focus({ preventScroll: true });
     });
@@ -1058,7 +1060,17 @@
       .addEventListener("submit", function (e) {
         e.preventDefault();
 
-        const slot = document.getElementById("slot").value || "Any available time";
+        const slot = document.getElementById("slot").value;
+        const slotError = document.getElementById("slotError");
+
+        // A slot must be chosen before the request goes to WhatsApp
+        if (!slot) {
+          slotError.classList.remove("hidden");
+          document.getElementById("booking").scrollIntoView({ behavior: "smooth" });
+          return;
+        }
+
+        slotError.classList.add("hidden");
         const name = document.getElementById("name").value;
         const phone = document.getElementById("phone").value;
         const email = document.getElementById("email").value;
@@ -1069,7 +1081,7 @@
         const text =
 `New Appointment Request
 
-Preferred Slot: ${slot}
+Requested Slot: ${slot}
 Name: ${name}
 Phone: ${phone}
 Email: ${email}
