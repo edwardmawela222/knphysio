@@ -450,7 +450,7 @@
 
       <p class="text-gray-600 max-w-2xl mx-auto">
         Pick a day to see the open time slots, choose a time that suits you,
-        and send your request on WhatsApp. Your booking is confirmed once Kabelo replies.
+        and send your details. Kabelo will confirm your appointment.
       </p>
 
       <div class="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3 text-sm">
@@ -711,16 +711,50 @@
           class="w-full p-3 rounded text-black"
         ></textarea>
 
+        <p id="formError" class="hidden text-sm font-semibold text-amber-200" role="alert"></p>
+
         <div class="text-center">
           <button
             type="submit"
-            class="bg-white text-blue-700 px-6 py-3 rounded-full font-semibold hover:scale-105 transition"
+            id="submitBooking"
+            class="bg-white text-blue-700 px-6 py-3 rounded-full font-semibold hover:scale-105 transition disabled:opacity-60 disabled:hover:scale-100"
           >
-            Continue to WhatsApp
+            Book Appointment
           </button>
         </div>
 
       </form>
+
+      <!-- Booking Confirmation -->
+      <div id="bookingSuccess" class="hidden max-w-md mx-auto bg-white text-gray-800 rounded-2xl p-6 shadow-lg" role="status">
+        <div class="w-12 h-12 mx-auto mb-4 rounded-full bg-green-100 text-green-600 flex items-center justify-center">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/>
+          </svg>
+        </div>
+
+        <h3 class="text-xl font-bold mb-2">Your slot is reserved</h3>
+        <p id="bookingSuccessSlot" class="font-semibold text-blue-700 mb-3"></p>
+        <p class="text-sm text-gray-600 mb-6">
+          Kabelo has received your booking and will confirm with you shortly.
+          You can also send your details on WhatsApp.
+        </p>
+
+        <a
+          id="bookingSuccessWhatsApp"
+          target="_blank"
+          rel="noopener"
+          class="inline-block bg-green-600 text-white px-6 py-3 rounded-full font-semibold hover:scale-105 transition mb-4"
+        >
+          Send on WhatsApp
+        </a>
+
+        <p>
+          <button id="bookAnother" type="button" class="text-sm text-blue-700 underline">
+            Book another appointment
+          </button>
+        </p>
+      </div>
 
     </div>
   </section>
@@ -775,6 +809,10 @@
       bookedSlots:  slots already taken, e.g. "2026-11-03": ["09:00", "14:00"].
       monthsAhead:  how many months ahead patients can browse.
       minNoticeHours: how soon a slot can be booked from now.
+      calendarUrl:  web app URL of the Google Calendar connector
+                    (google-apps-script/SETUP.md). When set, taken times come
+                    from Kabelo's Google Calendar and bookings are added to it.
+                    Leave empty to use only the settings above.
     */
     const AVAILABILITY = {
       hours: {
@@ -794,10 +832,14 @@
       ],
       bookedSlots: {},
       monthsAhead: 2,
-      minNoticeHours: 2
+      minNoticeHours: 2,
+      calendarUrl: ""
     };
 
     const FEW_SLOTS = 2;
+
+    // South Africa is UTC+2 all year (no daylight saving)
+    const CLINIC_UTC_OFFSET_HOURS = 2;
 
     const grid = document.getElementById("calendarGrid");
     const monthLabel = document.getElementById("monthLabel");
@@ -818,6 +860,10 @@
     let selectedDate = null;
     let selectedTime = null;
 
+    // Live availability from Google Calendar: "off", "loading", "live" or "error"
+    let calendarState = AVAILABILITY.calendarUrl ? "loading" : "off";
+    let busyTimes = [];
+
     const toKey = date =>
       `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
 
@@ -832,16 +878,21 @@
     const formatDay = date =>
       date.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" });
 
+    // Slot start as a timestamp, in clinic time whatever the visitor's time zone
+    const slotStart = (date, minutes) =>
+      Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) +
+      (minutes - CLINIC_UTC_OFFSET_HOURS * 60) * 60000;
+
     function slotsFor(date) {
       const hours = AVAILABILITY.hours[date.getDay()];
       const key = toKey(date);
 
-      if (!hours || date < today || AVAILABILITY.closedDates.includes(key)) {
+      if (calendarState === "loading" || !hours || date < today || AVAILABILITY.closedDates.includes(key)) {
         return [];
       }
 
       const booked = AVAILABILITY.bookedSlots[key] || [];
-      const earliest = new Date(Date.now() + AVAILABILITY.minNoticeHours * 3600000);
+      const earliest = Date.now() + AVAILABILITY.minNoticeHours * 3600000;
       const slots = [];
 
       for (
@@ -850,10 +901,11 @@
         t += AVAILABILITY.slotMinutes
       ) {
         const time = toTime(t);
-        const start = new Date(date);
-        start.setHours(Math.floor(t / 60), t % 60);
+        const start = slotStart(date, t);
+        const end = start + AVAILABILITY.slotMinutes * 60000;
+        const taken = busyTimes.some(([busyStart, busyEnd]) => start < busyEnd && end > busyStart);
 
-        if (!booked.includes(time) && start >= earliest) {
+        if (!booked.includes(time) && !taken && start >= earliest) {
           slots.push(time);
         }
       }
@@ -945,6 +997,12 @@
     function renderSlots() {
       slotList.innerHTML = "";
 
+      if (calendarState === "loading") {
+        selectedDayLabel.textContent = "Checking availability…";
+        slotCount.textContent = "Loading Kabelo's diary.";
+        return;
+      }
+
       if (!selectedDate) {
         selectedDayLabel.textContent = "Choose a date";
         slotCount.textContent = "No open slots in this month. Try the next one.";
@@ -954,6 +1012,10 @@
       const slots = slotsFor(selectedDate);
       selectedDayLabel.textContent = formatDay(selectedDate);
       slotCount.textContent = `${slots.length} slot${slots.length === 1 ? "" : "s"} available · ${AVAILABILITY.slotMinutes} min sessions`;
+
+      if (calendarState === "error") {
+        slotCount.textContent += ". Live availability couldn't be loaded, so your slot will be checked when you book.";
+      }
 
       const groups = [
         { name: "Morning", slots: slots.filter(t => toMinutes(t) < 12 * 60) },
@@ -1018,6 +1080,21 @@
     }
 
     function selectFirstAvailable() {
+      // Keep the current choice if it's in view and still open
+      if (
+        selectedDate &&
+        selectedDate.getMonth() === viewMonth.getMonth() &&
+        slotsFor(selectedDate).length
+      ) {
+        if (selectedTime && !slotsFor(selectedDate).includes(selectedTime)) {
+          selectedTime = null;
+        }
+        renderCalendar();
+        renderSlots();
+        renderSummary();
+        return;
+      }
+
       const daysInMonth = new Date(viewMonth.getFullYear(), viewMonth.getMonth() + 1, 0).getDate();
 
       for (let day = 1; day <= daysInMonth; day++) {
@@ -1037,6 +1114,28 @@
 
     function changeMonth(step) {
       viewMonth = new Date(viewMonth.getFullYear(), viewMonth.getMonth() + step, 1);
+      selectedDate = null;
+      selectedTime = null;
+      selectFirstAvailable();
+    }
+
+    async function loadAvailability() {
+      if (!AVAILABILITY.calendarUrl) return;
+
+      const from = toKey(today);
+      const to = toKey(new Date(lastMonth.getFullYear(), lastMonth.getMonth() + 1, 0));
+
+      try {
+        const response = await fetch(`${AVAILABILITY.calendarUrl}?from=${from}&to=${to}`);
+        const data = await response.json();
+        if (!data.ok) throw new Error(data.error);
+
+        busyTimes = data.busy.map(busy => [Date.parse(busy.start), Date.parse(busy.end)]);
+        calendarState = "live";
+      } catch (error) {
+        calendarState = "error";
+      }
+
       selectFirstAvailable();
     }
 
@@ -1044,63 +1143,141 @@
     nextButton.addEventListener("click", () => changeMonth(1));
 
     document.getElementById("bookSlotButton").addEventListener("click", () => {
-      document.getElementById("slot").value = slotSummaryText.textContent;
+      const slotField = document.getElementById("slot");
+      slotField.value = slotSummaryText.textContent;
+      slotField.dataset.start = `${toKey(selectedDate)}T${selectedTime}`;
       document.getElementById("slotError").classList.add("hidden");
       document.getElementById("bookingForm").scrollIntoView({ behavior: "smooth", block: "center" });
       document.getElementById("name").focus({ preventScroll: true });
     });
 
     selectFirstAvailable();
+    loadAvailability();
   </script>
 
-  <!-- Form to WhatsApp -->
+  <!-- Booking Form -->
   <script>
-    document
-      .getElementById("bookingForm")
-      .addEventListener("submit", function (e) {
-        e.preventDefault();
+    const bookingForm = document.getElementById("bookingForm");
+    const slotField = document.getElementById("slot");
+    const slotError = document.getElementById("slotError");
+    const formError = document.getElementById("formError");
+    const submitBooking = document.getElementById("submitBooking");
+    const bookingSuccess = document.getElementById("bookingSuccess");
 
-        const slot = document.getElementById("slot").value;
-        const slotError = document.getElementById("slotError");
+    const BOOKING_ERRORS = {
+      taken: "Sorry, that slot was just taken. Please choose another time.",
+      unavailable: "That slot is no longer available. Please choose another time.",
+      too_many: "You already have bookings waiting for confirmation. Kabelo will be in touch, or call 082 310 5343.",
+      try_again: "The booking system is busy. Please try again in a moment."
+    };
 
-        // A slot must be chosen before the request goes to WhatsApp
-        if (!slot) {
-          slotError.classList.remove("hidden");
-          document.getElementById("booking").scrollIntoView({ behavior: "smooth" });
-          return;
-        }
+    const whatsAppLink = text => `https://wa.me/27823105343?text=${encodeURIComponent(text)}`;
 
-        slotError.classList.add("hidden");
-        const name = document.getElementById("name").value;
-        const phone = document.getElementById("phone").value;
-        const email = document.getElementById("email").value;
-        const service = document.getElementById("service").value;
-        const visitType = document.getElementById("visitType").value;
-        const message = document.getElementById("message").value;
+    function showFormError(message) {
+      formError.textContent = message;
+      formError.classList.remove("hidden");
+    }
 
-        const text =
-`New Appointment Request
+    function clearSlot() {
+      slotField.value = "";
+      delete slotField.dataset.start;
+    }
 
-Requested Slot: ${slot}
-Name: ${name}
-Phone: ${phone}
-Email: ${email}
-Service: ${service}
-Visit Type: ${visitType}
+    bookingForm.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      formError.classList.add("hidden");
+
+      // A slot must be chosen before the request is sent
+      if (!slotField.value) {
+        slotError.classList.remove("hidden");
+        document.getElementById("booking").scrollIntoView({ behavior: "smooth" });
+        return;
+      }
+
+      slotError.classList.add("hidden");
+
+      const booking = {
+        start: slotField.dataset.start,
+        name: document.getElementById("name").value,
+        phone: document.getElementById("phone").value,
+        email: document.getElementById("email").value,
+        service: document.getElementById("service").value,
+        visitType: document.getElementById("visitType").value,
+        notes: document.getElementById("message").value
+      };
+
+      const slot = slotField.value;
+      const live = Boolean(AVAILABILITY.calendarUrl);
+
+      const text =
+`${live ? "New Booking" : "New Appointment Request"}
+
+${live ? "Booked Slot (awaiting confirmation)" : "Requested Slot"}: ${slot}
+Name: ${booking.name}
+Phone: ${booking.phone}
+Email: ${booking.email}
+Service: ${booking.service}
+Visit Type: ${booking.visitType}
 
 Notes:
-${message}`;
+${booking.notes}`;
 
-        const encodedText = encodeURIComponent(text);
-
-        window.open(
-          `https://wa.me/27823105343?text=${encodedText}`,
-          "_blank",
-          "noopener"
-        );
-
+      // Without the Google Calendar connector, send the request straight to WhatsApp
+      if (!live) {
+        window.open(whatsAppLink(text), "_blank", "noopener");
         this.reset();
-      });
+        clearSlot();
+        return;
+      }
+
+      submitBooking.disabled = true;
+      submitBooking.textContent = "Reserving your slot…";
+
+      try {
+        // text/plain avoids a CORS preflight, which Apps Script doesn't answer
+        const response = await fetch(AVAILABILITY.calendarUrl, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(booking)
+        });
+        const result = await response.json();
+
+        if (!result.ok) {
+          showFormError(BOOKING_ERRORS[result.error] || "Something went wrong. Please try again, or call 082 310 5343.");
+
+          if (result.error === "taken" || result.error === "unavailable") {
+            clearSlot();
+            loadAvailability();
+            document.getElementById("booking").scrollIntoView({ behavior: "smooth" });
+          }
+          return;
+        }
+      } catch (error) {
+        showFormError("We couldn't reach the booking system. Please try again, or call 082 310 5343.");
+        return;
+      } finally {
+        submitBooking.disabled = false;
+        submitBooking.textContent = "Book Appointment";
+      }
+
+      document.getElementById("bookingSuccessSlot").textContent = slot;
+      document.getElementById("bookingSuccessWhatsApp").href = whatsAppLink(text);
+      bookingForm.classList.add("hidden");
+      bookingSuccess.classList.remove("hidden");
+      bookingSuccess.scrollIntoView({ behavior: "smooth", block: "center" });
+
+      this.reset();
+      clearSlot();
+      selectedDate = null;
+      selectedTime = null;
+      loadAvailability();
+    });
+
+    document.getElementById("bookAnother").addEventListener("click", () => {
+      bookingSuccess.classList.add("hidden");
+      bookingForm.classList.remove("hidden");
+      document.getElementById("booking").scrollIntoView({ behavior: "smooth" });
+    });
   </script>
 
 </body>
