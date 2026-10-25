@@ -736,8 +736,8 @@
         <h3 class="text-xl font-bold mb-2">Your slot is reserved</h3>
         <p id="bookingSuccessSlot" class="font-semibold text-blue-700 mb-3"></p>
         <p class="text-sm text-gray-600 mb-6">
-          Kabelo has received your booking and will confirm with you shortly.
-          You can also send your details on WhatsApp.
+          One last step: WhatsApp is opening with your booking details.
+          Please press <strong>send</strong> so Kabelo can confirm your appointment.
         </p>
 
         <a
@@ -746,8 +746,10 @@
           rel="noopener"
           class="inline-block bg-green-600 text-white px-6 py-3 rounded-full font-semibold hover:scale-105 transition mb-4"
         >
-          Send on WhatsApp
+          Open WhatsApp
         </a>
+
+        <p class="text-xs text-gray-500 mb-4">If WhatsApp didn't open, tap the button above.</p>
 
         <p>
           <button id="bookAnother" type="button" class="text-sm text-blue-700 underline">
@@ -1209,18 +1211,23 @@
       const slot = slotField.value;
       const live = Boolean(AVAILABILITY.calendarUrl);
 
-      const text =
-`${live ? "New Booking" : "New Appointment Request"}
-
-${live ? "Booked Slot (awaiting confirmation)" : "Requested Slot"}: ${slot}
-Name: ${booking.name}
-Phone: ${booking.phone}
-Email: ${booking.email}
-Service: ${booking.service}
-Visit Type: ${booking.visitType}
-
-Notes:
-${booking.notes}`;
+      const text = [
+        "Hello KN Physio,",
+        "",
+        live
+          ? "I've just booked an appointment on knphysio.online. Please confirm my booking."
+          : "I'd like to book an appointment through knphysio.online. Please confirm if this slot is available.",
+        "",
+        `*Date & time:* ${slot}`,
+        `*Service:* ${booking.service}`,
+        `*Visit type:* ${booking.visitType}`,
+        `*Name:* ${booking.name}`,
+        `*Phone:* ${booking.phone}`,
+        booking.email ? `*Email:* ${booking.email}` : null,
+        booking.notes ? `*Notes:* ${booking.notes}` : null,
+        "",
+        "Thank you!"
+      ].filter(line => line !== null).join("\n");
 
       // Without the Google Calendar connector, send the request straight to WhatsApp
       if (!live) {
@@ -1229,6 +1236,17 @@ ${booking.notes}`;
         clearSlot();
         return;
       }
+
+      // Open the WhatsApp tab now, while the click still counts as the
+      // patient's action; browsers block pop-ups opened after a delay
+      const whatsAppWindow = window.open("", "_blank");
+      if (whatsAppWindow) {
+        whatsAppWindow.opener = null;
+        whatsAppWindow.document.write(
+          '<p style="font-family: sans-serif; padding: 2rem; text-align: center;">Reserving your slot…</p>'
+        );
+      }
+      const closeWhatsApp = () => whatsAppWindow && whatsAppWindow.close();
 
       submitBooking.disabled = true;
       submitBooking.textContent = "Reserving your slot…";
@@ -1243,6 +1261,7 @@ ${booking.notes}`;
         const result = await response.json();
 
         if (!result.ok) {
+          closeWhatsApp();
           showFormError(BOOKING_ERRORS[result.error] || "Something went wrong. Please try again, or call 082 310 5343.");
 
           if (result.error === "taken" || result.error === "unavailable") {
@@ -1253,6 +1272,7 @@ ${booking.notes}`;
           return;
         }
       } catch (error) {
+        closeWhatsApp();
         showFormError("We couldn't reach the booking system. Please try again, or call 082 310 5343.");
         return;
       } finally {
@@ -1262,6 +1282,11 @@ ${booking.notes}`;
 
       document.getElementById("bookingSuccessSlot").textContent = slot;
       document.getElementById("bookingSuccessWhatsApp").href = whatsAppLink(text);
+
+      if (whatsAppWindow) {
+        whatsAppWindow.location.href = whatsAppLink(text);
+      }
+
       bookingForm.classList.add("hidden");
       bookingSuccess.classList.remove("hidden");
       bookingSuccess.scrollIntoView({ behavior: "smooth", block: "center" });
