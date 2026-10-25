@@ -5,8 +5,10 @@ Google Calendar. Once it's set up:
 
 - Anything in his calendar (appointments, personal plans, days off) shows as
   unavailable on the website.
-- When a patient books, the slot is added to his calendar straight away as a
-  **"Pending: …"** event, and he gets an email with the patient's details.
+- When a patient books, the appointment is added to his calendar straight
+  away, and he gets an email with the patient's details.
+- Open slots are first come, first served: if a slot shows on the website,
+  it's bookable. Kabelo only needs to keep his calendar up to date.
 - The website only ever sees *when* he is busy, never event names or details.
 
 Setup takes about 10 minutes and only needs to be done once.
@@ -56,10 +58,14 @@ You should see something like `{"ok":true,"busy":[…]}` listing his busy times.
 
 | To… | Do this in Google Calendar |
 | --- | --- |
-| Confirm a booking | Contact the patient. Optionally remove "Pending:" from the event title. |
-| Decline or cancel a booking | Delete the event. The slot opens up on the website again. |
-| Block time off (leave, holidays, a meeting) | Add an event. An all-day event blocks the whole day. |
+| Accept a booking | Nothing to do. It's already in the calendar and the slot is taken. |
+| Cancel a booking (an exception) | Let the patient know on WhatsApp, then delete the event. The slot opens up on the website again. |
+| Make a time unavailable (away, errands, leave) | Add an event at that time. An all-day event blocks the whole day. |
 | Keep an event without blocking slots | Set the event to show as **Free**. |
+
+Only events between 09:00 and 18:00, Monday to Saturday, affect the website,
+because those are the only times it offers. Each phone number can have at
+most 2 upcoming website bookings at a time.
 
 Opening hours (Mon–Sat 09:00–18:00) are set in both `Code.gs` and the
 `AVAILABILITY` block in `index.html`. If the hours change, update both.
