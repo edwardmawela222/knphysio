@@ -452,6 +452,22 @@
         Pick a day to see the open time slots, choose a time that suits you,
         and send your request on WhatsApp. Your booking is confirmed once Kabelo replies.
       </p>
+
+      <div class="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3 text-sm">
+        <span class="inline-flex items-center gap-2 bg-blue-50 text-blue-800 px-4 py-2 rounded-full font-semibold">
+          <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+          </svg>
+          Mon–Sat 09:00–18:00 · Sun Closed
+        </span>
+      </div>
+
+      <p class="mt-4 inline-flex items-start gap-2 text-sm text-red-700 bg-red-50 px-4 py-2 rounded-lg text-left">
+          <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z"/>
+          </svg>
+        In case of emergency, please go to your nearest hospital or health-care facility.
+      </p>
     </div>
 
     <div class="grid lg:grid-cols-5 gap-8">
@@ -586,6 +602,19 @@
 
       </div>
 
+      <!-- Opening Hours -->
+      <div class="mb-8 space-y-2">
+        <p class="inline-flex items-center gap-2 font-semibold">
+          <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+          </svg>
+          Mon–Sat 09:00–18:00 · Sun Closed
+        </p>
+        <p class="text-sm text-blue-100">
+          In case of emergency, please go to your nearest hospital or health-care facility.
+        </p>
+      </div>
+
       <!-- Main WhatsApp CTA -->
       <a
         href="https://wa.me/27823105343?text=Hello%20I%20would%20like%20to%20book%20a%20physiotherapy%20appointment"
@@ -620,7 +649,7 @@
               id="slot"
               readonly
               placeholder="Any available time"
-              class="flex-1 p-3 rounded text-black bg-blue-50"
+              class="flex-1 min-w-0 p-3 rounded text-black bg-blue-50"
             />
             <a
               href="#booking"
@@ -748,12 +777,12 @@
     */
     const AVAILABILITY = {
       hours: {
-        1: { start: "08:00", end: "17:00" },
-        2: { start: "08:00", end: "17:00" },
-        3: { start: "08:00", end: "17:00" },
-        4: { start: "08:00", end: "17:00" },
-        5: { start: "08:00", end: "17:00" },
-        6: { start: "08:00", end: "12:00" }
+        1: { start: "09:00", end: "18:00" },
+        2: { start: "09:00", end: "18:00" },
+        3: { start: "09:00", end: "18:00" },
+        4: { start: "09:00", end: "18:00" },
+        5: { start: "09:00", end: "18:00" },
+        6: { start: "09:00", end: "18:00" }
       },
       slotMinutes: 60,
       closedDates: [
@@ -800,7 +829,7 @@
       `${String(Math.floor(minutes / 60)).padStart(2, "0")}:${String(minutes % 60).padStart(2, "0")}`;
 
     const formatDay = date =>
-      date.toLocaleDateString("en-ZA", { weekday: "long", day: "numeric", month: "long" });
+      date.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" });
 
     function slotsFor(date) {
       const hours = AVAILABILITY.hours[date.getDay()];
@@ -832,7 +861,7 @@
     }
 
     function renderCalendar() {
-      monthLabel.textContent = viewMonth.toLocaleDateString("en-ZA", { month: "long", year: "numeric" });
+      monthLabel.textContent = viewMonth.toLocaleDateString("en-GB", { month: "long", year: "numeric" });
       prevButton.disabled = viewMonth <= firstMonth;
       nextButton.disabled = viewMonth >= lastMonth;
 
